@@ -5,7 +5,7 @@ import Field from '@components/Field.jsx';
 export default function Home() {
   return (
     <div>
-      <Field />
+      <Field modelPath='/san_cau.gltf'/>
     </div>
   );
 }

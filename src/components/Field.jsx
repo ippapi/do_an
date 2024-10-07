@@ -1,24 +1,31 @@
 "use client";
 
-// components/BadmintonField.js
-import React, { Suspense } from 'react';
-import { Canvas } from '@react-three/fiber';
+import React, { useRef, Suspense } from 'react';
+import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, useGLTF } from '@react-three/drei';
 
-function Field() {
-  const { scene } = useGLTF('/san_cau.gltf');
+const Field = ({modelPath}) => {
+  const { scene } = useGLTF(modelPath);
 
-  return <primitive object={scene} scale={1} />;
+  const fieldRef = useRef();
+
+  useFrame(() => {
+    if(fieldRef.current){
+      fieldRef.current.rotation.y += 0.01
+    }
+  })
+
+  return <primitive ref={fieldRef} object={scene} scale={0.5} />;
 }
 
-export default function FieldScene() {
+const FieldScene = ({ modelPath }) => {
   return (
-    <div style={{ height: '100vh', width: '100vw' }}>
+    <div style={{ height: '100px', width: '100px'}}>
       <Canvas camera={{ position: [10, 10, 10], fov: 75 }}>
         <ambientLight intensity={1} />
         <pointLight position={[10, 10, 10]} intensity={1} />
         <Suspense fallback={null}>
-          <Field />
+          <Field modelPath={ modelPath }/>
         </Suspense>
         <OrbitControls
           enableDamping={true}
@@ -30,3 +37,4 @@ export default function FieldScene() {
   );
 }
 
+export default FieldScene
