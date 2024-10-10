@@ -1,11 +1,11 @@
 import Head from 'next/head';
 import styles from '@styles/Home.module.css';
-import Field from '@components/Field.jsx';
+import Static_model from '@components/Static_model.jsx';
 
 export default function Home() {
   return (
-    <div>
-      <Field modelPath='/san_cau.gltf'/>
+    <div style={{display:'flex', justifyContent: 'center'}}>
+      <Static_model modelPath='/san_cau.gltf' scale={0.5} />
     </div>
   );
 }
